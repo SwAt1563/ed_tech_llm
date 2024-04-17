@@ -23,13 +23,13 @@ class ChatAPIView(APIView):
         question = request.data.get('question', '')
 
         if not question:
-            return Response({'error': 'No question provided'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'answer': 'No query provided'})
 
         # Retrieve chat history from session or initialize if not present
         current_history = request.session.get('chat_history', [])
 
         # Initialize the ConversationBufferWindowMemory
-        memory = ConversationBufferWindowMemory(k=5, memory_key="chat_history", return_messages=True)
+        memory = ConversationBufferWindowMemory(k=10, memory_key="chat_history", return_messages=True)
 
         convert_chat_history_cp_to_lc(current_history, memory)
 
@@ -56,14 +56,14 @@ class ChatAPIView(APIView):
         except Exception as e:
             spam = True
             # Handle other general exceptions that might occur.
-            answer = f"Whoopsie! It looks like what you asked for isn't available right now. That's because we want to make sure everything here is super safe and fun for everyone. Let's try something else together, okay? If you have another question or want to chat about something else, just let me know!"
+            answer = f"Whoopsie! It looks like you asked something I cannot answer. That's because we want to make sure everything here is super safe and fun for everyone. Is there anything else I can help with?"
 
         if not spam:
             current_history.append({'role': 'user', 'content': question})
             current_history.append({'role': 'assistant', 'content': answer})
 
         # Update and serialize the history back into the session
-        request.session['chat_history'] = current_history
+        request.session['chat_history'] = current_history[-10:]
         # Make sure the session is saved
         request.session.modified = True
 

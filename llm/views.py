@@ -29,7 +29,7 @@ class ChatAPIView(APIView):
         current_history = request.session.get('chat_history', [])
 
         # Initialize the ConversationBufferWindowMemory
-        memory = ConversationBufferWindowMemory(k=10, memory_key="chat_history", return_messages=True)
+        memory = ConversationBufferWindowMemory(k=30, memory_key="chat_history", return_messages=True)
 
         convert_chat_history_cp_to_lc(current_history, memory)
 
@@ -63,7 +63,7 @@ class ChatAPIView(APIView):
             current_history.append({'role': 'assistant', 'content': answer})
 
         # Update and serialize the history back into the session
-        request.session['chat_history'] = current_history[-10:]
+        request.session['chat_history'] = current_history[-30:]
         # Make sure the session is saved
         request.session.modified = True
 

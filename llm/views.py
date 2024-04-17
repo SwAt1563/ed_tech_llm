@@ -9,7 +9,6 @@ from .prompt_template import template
 import os
 
 
-
 def convert_chat_history_cp_to_lc(cp_messages, lc_memory):
     lc_memory.clear()
     for cp_message in cp_messages:
@@ -17,6 +16,7 @@ def convert_chat_history_cp_to_lc(cp_messages, lc_memory):
             lc_memory.chat_memory.add_user_message(cp_message["content"])
         elif cp_message["role"] == "assistant":
             lc_memory.chat_memory.add_ai_message(cp_message["content"])
+
 
 class ChatAPIView(APIView):
     def post(self, request):
@@ -35,7 +35,6 @@ class ChatAPIView(APIView):
 
         # Setup for the AzureChatOpenAI
         llm = AzureChatOpenAI(deployment_name=os.environ['DEPLOYMENT_NAME'], temperature=0.7)
-
 
         prompt_template = PromptTemplate(
             template=template,
@@ -57,8 +56,7 @@ class ChatAPIView(APIView):
         except Exception as e:
             spam = True
             # Handle other general exceptions that might occur.
-            answer = f"The response was filtered due to the prompt triggering Azure OpenAI's content management policy." \
-                     f" Please modify your prompt and retry."
+            answer = f"Whoopsie! It looks like what you asked for isn't available right now. That's because we want to make sure everything here is super safe and fun for everyone. Let's try something else together, okay? If you have another question or want to chat about something else, just let me know!"
 
         if not spam:
             current_history.append({'role': 'user', 'content': question})
@@ -71,5 +69,3 @@ class ChatAPIView(APIView):
 
         # Return the AI's response
         return Response({"answer": answer})
-
-

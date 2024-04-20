@@ -1,4 +1,4 @@
-# SEL Assistant Chatbot 
+# SEL Assistant Chatbot Backend
 
 Welcome to the backend repository for the SEL Assistant Chatbot! This repository houses the core functionalities that power our chatbot, designed to support students by managing their emotions and providing social-emotional guidance outside school hours. Developed with Django REST framework, this backend integrates with Azure services, including Azure VM and Azure OpenAI, utilizing ChatGPT for natural language processing and LangChain for managing chat interactions and history.
 

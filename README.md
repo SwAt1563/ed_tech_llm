@@ -23,37 +23,65 @@ Follow these instructions to get your backend server up and running.
 
 ### Prerequisites
 
-- Python 3.8 or newer
-- Pipenv for dependency management
+- Python 3.8 or [newer]((https://www.python.org/downloads/))
 
-### Installation
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/SwAt1563/ed_tech_llm.git
-   ```
-2. Navigate to the project directory:
-   ```bash
-   cd ed_tech_llm
-   ```
-3. Install dependencies using Pipenv:
-   ```bash
-   pipenv install
-   ```
-4. Activate the virtual environment:
-   ```bash
-   pipenv shell
-   ```
-5. Migrate the database:
-   ```bash
-   python manage.py migrate
-   ```
-6. Run the development server:
-   ```bash
-   python manage.py runserver
-   ```
+## Setup Instructions
 
-The server will start running on `http://localhost:8000`.
+Follow these steps to get your development environment set up:
+
+### 1. Clone the Repository
+
+First, you need to clone the repository from GitHub to your local machine.
+
+```bash
+git clone https://github.com/SwAt1563/ed_tech_llm.git
+cd ed_tech_llm
+```
+
+### 2. Create a Virtual Environment
+
+Creating a virtual environment is highly recommended to manage dependencies.
+
+#### For Windows:
+```bash
+python -m venv venv
+venv\Scripts\activate
+```
+
+#### For Linux:
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
+
+### 3. Install Requirements
+
+With your virtual environment active, install the project dependencies using:
+
+```bash
+pip install -r requirements.txt
+```
+
+### 4. Database Setup
+
+Before running the application, you need to make migrations and migrate the database schemas.
+
+```bash
+python manage.py makemigrations
+python manage.py migrate
+```
+
+### 5. Run the Development Server
+
+Finally, start the Django development server:
+
+```bash
+python manage.py runserver
+```
+
+By default, the server will start on `http://127.0.0.1:8000/`. You can open this address in a web browser to view the application.
+
 
 ## Usage
 
